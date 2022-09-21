@@ -1,25 +1,40 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { SwitchService } from './switch.service';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CreateSwitchDto } from './dto/create-switch.dto';
+import { SwitchDto } from './dto/switch.dto';
 import { UpdateSwitchDto } from './dto/update-switch.dto';
+import { SwitchService } from './switch.service';
 
 @Controller('switch')
 export class SwitchController {
-  constructor(private readonly switchService: SwitchService) {}
+  constructor(private readonly switchService: SwitchService) { }
 
   @Post()
-  create(@Body() createSwitchDto: CreateSwitchDto) {
-    return this.switchService.create(createSwitchDto);
+  async create(@Body() createSwitchDto: CreateSwitchDto) {
+    try {
+      const result = await this.switchService.create(createSwitchDto);
+      return { data: new SwitchDto(result) }
+    } catch (error) {
+    }
   }
 
   @Get()
-  findAll() {
-    return this.switchService.findAll();
+  async findAll() {
+    try {
+      const result = await this.switchService.findAll()
+      return { data: result.map(it => new SwitchDto(it)) }
+    } catch (error) {
+
+    };
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.switchService.findOne(+id);
+  async findOne(@Param('id') id: number) {
+    try {
+      const result = await this.switchService.findOne(+id);
+      return { data: new SwitchDto(result) }
+    } catch (error) {
+
+    }
   }
 
   @Patch(':id')

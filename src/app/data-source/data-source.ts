@@ -1,17 +1,21 @@
-import { Switch } from "src/switch/entities/switch.entity";
-import { DataSource } from "typeorm";
+import { DynamicModule } from "@nestjs/common";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { env } from "../../config/environment.config";
+import { Port } from "../../port/entities/port.entity";
+import { Switch } from "../../switch/entities/switch.entity";
 
-const AppDataSource = new DataSource({
-    type: "postgres",
-    host: "localhost",
-    port: 5432,
-    username: "root",
-    password: "admin",
-    database: "test",
-    entities: [Switch],
-    synchronize: false,
-    logging: false,
-})
-
-
-export default AppDataSource
+export const appDatabase: DynamicModule = TypeOrmModule.forRootAsync({
+    useFactory: async () => {
+        return {
+            type: 'mysql',
+            host: env.database.host,
+            port: env.database.port,
+            database: env.database.database,
+            username: env.database.username,
+            password: env.database.password,
+            synchronize: env.database.synchronize,
+            logging: env.database.logging,
+            entities: [Switch, Port]
+        }
+    }
+}) 

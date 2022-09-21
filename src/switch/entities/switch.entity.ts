@@ -1,54 +1,65 @@
-import { User } from "src/user/entities/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Port } from "../../port/entities/port.entity";
 
-@Entity('switch')
+@Entity('switchs')
 export class Switch {
-    @PrimaryColumn({ name: 'id', type: 'varchar', default: () => 'UUID()' })
-    id: string
-
-    @Column({ name: 'model', type: 'int4' })
-    modelId: number
-
-    @Column({ name: 'device_description', type: 'varchar' })
-    deviceDescription: string
-
-    @Column({ name: 'mac_address', type: 'varchar' })
-    macAddress: string
+    @PrimaryGeneratedColumn('increment', { name: 'id', type: 'integer' })
+    id: number
 
     @Column({ name: 'ip_address', type: 'varchar' })
     ipAddress: string
 
-    @Column({ name: 'subnet_mask', type: 'varchar' })
-    subnetMask: string
+    @Column({ name: 'username', type: 'varchar' })
+    username: string
 
-    @Column({ name: 'default_gateway', type: 'varchar' })
-    defaultGateway: string
+    @Column({ name: 'password', type: 'varchar' })
+    password: string
 
-    @Column({ name: 'firmware_version', type: 'varchar' })
-    firmwareVersion: string
+    // @Column({ name: 'model', type: 'integer', nullable: true })
+    // modelId?: number
 
-    @Column({ name: 'hardware_version', type: 'varchar' })
-    hardwareVersion: string
+    // @Column({ name: 'device_description', type: 'varchar', nullable: true })
+    // deviceDescription?: string
 
-    @Column({ name: 'dhcp_on', type: 'boolean' })
-    dhcpOn: boolean
+    // @Column({ name: 'mac_address', type: 'varchar', nullable: true })
+    // macAddress?: string
 
-    @Column({ name: 'igmp_snooping_on', type: 'boolean' })
-    igmpSnoopingOn: boolean
 
-    @Column({ name: 'report_msg_supression_on', type: 'boolean' })
-    reportMsgSupressionOn: boolean
+    // @Column({ name: 'subnet_mask', type: 'varchar', nullable: true })
+    // subnetMask?: string
 
-    @Column({ name: 'loop_prevention_on', type: 'boolean' })
-    loopPreventionOn: boolean
+    // @Column({ name: 'default_gateway', type: 'varchar', nullable: true })
+    // defaultGateway?: string
 
-    @CreateDateColumn({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP()' })
+    // @Column({ name: 'firmware_version', type: 'varchar', nullable: true })
+    // firmwareVersion?: string
+
+    // @Column({ name: 'hardware_version', type: 'varchar', nullable: true })
+    // hardwareVersion?: string
+
+
+    // @Column({ name: 'dhcp_on', type: 'boolean' })
+    // dhcpOn: boolean
+
+    // @Column({ name: 'igmp_snooping_on', type: 'boolean' })
+    // igmpSnoopingOn: boolean
+
+    // @Column({ name: 'report_msg_supression_on', type: 'boolean' })
+    // reportMsgSupressionOn: boolean
+
+    // @Column({ name: 'loop_prevention_on', type: 'boolean' })
+    // loopPreventionOn: boolean
+
+    @CreateDateColumn({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP()' })
     createdAt: Date
 
-    @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP()' })
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP()' })
     updatedAt: Date
 
-    @OneToOne(() => User)
-    @JoinColumn({ name: 'user_id' })
-    user: User
+    @OneToMany(() => Port, port => port.switchEntity)
+    ports: Array<Port>
+
+    // @OneToOne(() => User)
+    // @JoinColumn({ name: 'user_id' })
+    // user: User
 }
