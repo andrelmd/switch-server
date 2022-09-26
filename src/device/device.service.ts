@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { hashSync } from 'bcrypt';
 import { DataSource, Repository } from 'typeorm';
 import { Port } from '../port/entities/port.entity';
 import { CreateDeviceDto } from './dto/create-device.dto';
@@ -16,13 +15,11 @@ export class DeviceService {
     private readonly datasource: DataSource,
   ) {}
   async create({ ipAddress, password, username }: CreateDeviceDto) {
-    const encryptedpassword = hashSync(password, 10);
-
     return await this.datasource.transaction(async (manager) => {
       const switchEntity = this.devicessRepository.create({
         username,
         ipAddress,
-        password: encryptedpassword,
+        password,
       });
       await manager.getRepository(Device).save(switchEntity);
       const ports = Array<Port>();

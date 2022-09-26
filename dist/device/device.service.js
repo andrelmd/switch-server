@@ -15,7 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.DeviceService = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const bcrypt_1 = require("bcrypt");
 const typeorm_2 = require("typeorm");
 const port_entity_1 = require("../port/entities/port.entity");
 const device_entity_1 = require("./entities/device.entity");
@@ -26,12 +25,11 @@ let DeviceService = class DeviceService {
         this.datasource = datasource;
     }
     async create({ ipAddress, password, username }) {
-        const encryptedpassword = (0, bcrypt_1.hashSync)(password, 10);
         return await this.datasource.transaction(async (manager) => {
             const switchEntity = this.devicessRepository.create({
                 username,
                 ipAddress,
-                password: encryptedpassword,
+                password,
             });
             await manager.getRepository(device_entity_1.Device).save(switchEntity);
             const ports = Array();
