@@ -1,30 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { PortService } from './port.service';
-import { CreatePortDto } from './dto/create-port.dto';
+import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common';
 import { UpdatePortDto } from './dto/update-port.dto';
+import { FlowControl } from './enums/flow-control.enum';
+import { Speeds } from './enums/speeds.enum';
+import { States } from './enums/states.enum';
+import { PortService } from './port.service';
 
-@Controller('port')
+@Controller('ports')
 export class PortController {
   constructor(private readonly portService: PortService) {}
 
-  @Post()
-  create(@Body() createPortDto: CreatePortDto) {
-    return this.portService.create(createPortDto);
+  @Get('/flow-control')
+  async getFlowControl() {
+    return { data: FlowControl };
+  }
+  @Get('/speeds')
+  async GetSpeed() {
+    return { data: Speeds };
   }
 
-  @Get()
-  findAll() {
-    return this.portService.findAll();
+  @Get('/states')
+  async getStates() {
+    return { data: States };
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.portService.findOne(+id);
+  @Get(':deviceId')
+  async findAll(@Param('deviceId') deviceId: string) {
+    const result = await this.portService.findAll(+deviceId);
+    return { data: result };
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePortDto: UpdatePortDto) {
-    return this.portService.update(+id, updatePortDto);
+  @Patch()
+  update(@Body() updatePortDto: UpdatePortDto) {
+    return this.portService.update(updatePortDto);
   }
 
   @Delete(':id')
