@@ -10,6 +10,7 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const device_module_1 = require("../device/device.module");
 const port_module_1 = require("../port/port.module");
+const scrapper_module_1 = require("../scrapper/scrapper.module");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const data_source_1 = require("./data-source/data-source");
@@ -17,7 +18,7 @@ let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [data_source_1.appDatabase, device_module_1.DeviceModule, port_module_1.PortModule],
+        imports: [data_source_1.appDatabase, device_module_1.DeviceModule, port_module_1.PortModule, scrapper_module_1.ScrapperModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })

@@ -23,15 +23,15 @@ __decorate([
     __metadata("design:type", Number)
 ], Port.prototype, "number", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'status_id', type: 'integer', default: () => 0 }),
+    (0, typeorm_1.Column)({ name: 'status_id', type: 'integer' }),
     __metadata("design:type", Number)
 ], Port.prototype, "statusId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'speed_id', type: 'integer', default: () => 1 }),
+    (0, typeorm_1.Column)({ name: 'speed_id', type: 'integer' }),
     __metadata("design:type", Number)
 ], Port.prototype, "speedId", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'flow_control_id', type: 'integer', default: () => 0 }),
+    (0, typeorm_1.Column)({ name: 'flow_control_id', type: 'integer' }),
     __metadata("design:type", Number)
 ], Port.prototype, "flowControlId", void 0);
 __decorate([

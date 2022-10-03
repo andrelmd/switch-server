@@ -26,11 +26,19 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    (0, typeorm_1.CreateDateColumn)({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP()' }),
+    (0, typeorm_1.CreateDateColumn)({
+        name: 'created_at',
+        type: 'timestamptz',
+        default: () => 'CURRENT_TIMESTAMP()',
+    }),
     __metadata("design:type", Date)
 ], User.prototype, "createdAt", void 0);
 __decorate([
-    (0, typeorm_1.UpdateDateColumn)({ name: 'updated_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP()' }),
+    (0, typeorm_1.UpdateDateColumn)({
+        name: 'updated_at',
+        type: 'timestamptz',
+        default: () => 'CURRENT_TIMESTAMP()',
+    }),
     __metadata("design:type", Date)
 ], User.prototype, "updatedAt", void 0);
 User = __decorate([

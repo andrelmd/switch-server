@@ -15,7 +15,7 @@ let PortMirrorModule = class PortMirrorModule {
 PortMirrorModule = __decorate([
     (0, common_1.Module)({
         controllers: [port_mirror_controller_1.PortMirrorController],
-        providers: [port_mirror_service_1.PortMirrorService]
+        providers: [port_mirror_service_1.PortMirrorService],
     })
 ], PortMirrorModule);
 exports.PortMirrorModule = PortMirrorModule;

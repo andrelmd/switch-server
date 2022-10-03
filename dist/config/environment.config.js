@@ -1,7 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.env = void 0;
-const databaseTypeValues = ["mysql", "postgres", "cockroachdb", "sap", "mariadb", "sqlite", "cordova", "react-native", "nativescript", "sqljs", "oracle", "mssql", "mongodb", "aurora-mysql", "aurora-postgres", "expo", "better-sqlite3", "capacitor", "spanner"];
 function createEnvironment() {
     const dbType = process.env.DB_TYPE;
     const dbHost = process.env.DB_HOST;
@@ -13,8 +12,6 @@ function createEnvironment() {
     const dbLogging = process.env.DB_LOGGING === 'true' ? true : false;
     if (!dbType)
         throw new Error('Env variable DB_TYPE not defined');
-    if (!databaseTypeValues.includes(dbType))
-        throw new Error('Env variable DB_TYPE is not valid');
     if (!dbHost)
         throw new Error('Env variable DB_HOST not defined');
     if (!dbPort)
@@ -32,12 +29,17 @@ function createEnvironment() {
         throw new Error('Env variable APP_PORT not defined');
     if (isNaN(appPort))
         throw new Error('Env variable APP_PORT is not a number');
+    const browserExecutablePath = process.env.BROWSER_EXECUTABLE_PATH;
+    const browserProduct = process.env.BROWSER_PRODUCT;
+    if (!browserExecutablePath)
+        throw new Error('Env variable BROWSER_EXECUTABLE_PATH not defined');
+    if (!browserProduct)
+        throw new Error('Env variable BROWSER_PRODUCT not defined');
     const env = {
         app: {
-            port: appPort
+            port: appPort,
         },
         database: {
-            type: dbType,
             host: dbHost,
             port: dbPort,
             username: dbUsername,
@@ -45,7 +47,11 @@ function createEnvironment() {
             database: dbDatabase,
             synchronize: dbSynchronize,
             logging: dbLogging,
-        }
+        },
+        browser: {
+            ExecutablePath: browserExecutablePath,
+            product: browserProduct,
+        },
     };
     return env;
 }

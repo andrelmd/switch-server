@@ -19,26 +19,26 @@ const create_device_dto_1 = require("./dto/create-device.dto");
 const device_dto_1 = require("./dto/device.dto");
 const update_device_dto_1 = require("./dto/update-device.dto");
 let DeviceController = class DeviceController {
-    constructor(switchService) {
-        this.switchService = switchService;
+    constructor(deviceService) {
+        this.deviceService = deviceService;
     }
     async create(createSwitchDto) {
-        const result = await this.switchService.create(createSwitchDto);
+        const result = await this.deviceService.create(createSwitchDto);
         return { data: new device_dto_1.DeviceDto(result) };
     }
     async findAll() {
-        const result = await this.switchService.findAll();
+        const result = await this.deviceService.findAll();
         return { data: result.map((it) => new device_dto_1.DeviceDto(it)) };
     }
     async findOne(id) {
-        const result = await this.switchService.findOne(+id);
+        const result = await this.deviceService.findOne(+id);
         return { data: new device_dto_1.DeviceDto(result) };
     }
     update(id, updateSwitchDto) {
-        return this.switchService.update(+id, updateSwitchDto);
+        return this.deviceService.update(+id, updateSwitchDto);
     }
     remove(id) {
-        return this.switchService.remove(+id);
+        return this.deviceService.remove(+id);
     }
 };
 __decorate([

@@ -34,7 +34,13 @@ let DeviceService = class DeviceService {
             await manager.getRepository(device_entity_1.Device).save(switchEntity);
             const ports = Array();
             for (let i = 0; i < 8; i++) {
-                ports.push(this.portsRepository.create({ number: i, deviceId: switchEntity.id }));
+                ports.push(this.portsRepository.create({
+                    number: i,
+                    deviceId: switchEntity.id,
+                    statusId: 1,
+                    speedId: 1,
+                    flowControlId: 1,
+                }));
             }
             await manager.getRepository(port_entity_1.Port).save(ports);
             return switchEntity;

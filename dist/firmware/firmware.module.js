@@ -15,7 +15,7 @@ let FirmwareModule = class FirmwareModule {
 FirmwareModule = __decorate([
     (0, common_1.Module)({
         controllers: [firmware_controller_1.FirmwareController],
-        providers: [firmware_service_1.FirmwareService]
+        providers: [firmware_service_1.FirmwareService],
     })
 ], FirmwareModule);
 exports.FirmwareModule = FirmwareModule;

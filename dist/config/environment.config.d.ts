@@ -1,10 +1,8 @@
-import { DatabaseType } from "typeorm";
 declare type Environment = {
     app: {
         port: number;
     };
     database: {
-        type: DatabaseType;
         host: string;
         port: number;
         username: string;
@@ -12,6 +10,10 @@ declare type Environment = {
         database: string;
         synchronize: boolean;
         logging: boolean;
+    };
+    browser: {
+        ExecutablePath: string;
+        product: string;
     };
 };
 export declare const env: Environment;

@@ -15,7 +15,7 @@ let LagModule = class LagModule {
 LagModule = __decorate([
     (0, common_1.Module)({
         controllers: [lag_controller_1.LagController],
-        providers: [lag_service_1.LagService]
+        providers: [lag_service_1.LagService],
     })
 ], LagModule);
 exports.LagModule = LagModule;

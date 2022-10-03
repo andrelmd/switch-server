@@ -3,8 +3,8 @@ import { CreateDeviceDto } from './dto/create-device.dto';
 import { DeviceDto } from './dto/device.dto';
 import { UpdateDeviceDto } from './dto/update-device.dto';
 export declare class DeviceController {
-    private readonly switchService;
-    constructor(switchService: DeviceService);
+    private readonly deviceService;
+    constructor(deviceService: DeviceService);
     create(createSwitchDto: CreateDeviceDto): Promise<{
         data: DeviceDto;
     }>;
