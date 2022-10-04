@@ -1,18 +1,18 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { FirmwareService } from './firmware.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { FirmwareService } from './firmware.service'
 
 describe('FirmwareService', () => {
-  let service: FirmwareService;
+  let service: FirmwareService
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [FirmwareService],
-    }).compile();
+    }).compile()
 
-    service = module.get<FirmwareService>(FirmwareService);
-  });
+    service = module.get<FirmwareService>(FirmwareService)
+  })
 
   it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-});
+    expect(service).toBeDefined()
+  })
+})

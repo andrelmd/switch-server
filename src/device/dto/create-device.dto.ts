@@ -1,15 +1,15 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator'
 
 export class CreateDeviceDto {
   @IsString()
   @IsNotEmpty()
-  ipAddress: string;
+  ipAddress: string
 
   @IsString()
   @IsNotEmpty()
-  username: string;
+  username: string
 
   @IsNotEmpty()
   @IsString()
-  password: string;
+  password: string
 }

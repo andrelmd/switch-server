@@ -1,25 +1,25 @@
-import { IsDefined, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsDefined, IsNotEmpty, IsNumber } from 'class-validator'
 
 export class UpdatePortDto {
   @IsDefined()
   @IsNotEmpty()
   @IsNumber()
-  number: number;
+  number: number
 
   @IsDefined()
   @IsNotEmpty()
   @IsNumber()
-  deviceId: number;
+  deviceId: number
 
   @IsNotEmpty()
   @IsNumber()
-  statusId?: number;
+  statusId?: number
 
   @IsNotEmpty()
   @IsNumber()
-  speedId?: number;
+  speedId?: number
 
   @IsNotEmpty()
   @IsNumber()
-  flowControlId?: number;
+  flowControlId?: number
 }

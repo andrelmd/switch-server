@@ -5,22 +5,22 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-} from 'typeorm';
-import { Port } from '../../port/entities/port.entity';
+} from 'typeorm'
+import { Port } from '../../port/entities/port.entity'
 
 @Entity('devices')
 export class Device {
   @PrimaryGeneratedColumn('increment', { name: 'id', type: 'integer' })
-  id: number;
+  id: number
 
   @Column({ name: 'ip_address', type: 'varchar' })
-  ipAddress: string;
+  ipAddress: string
 
   @Column({ name: 'username', type: 'varchar' })
-  username: string;
+  username: string
 
   @Column({ name: 'password', type: 'varchar' })
-  password: string;
+  password: string
 
   // @Column({ name: 'model', type: 'integer', nullable: true })
   // modelId?: number
@@ -60,17 +60,17 @@ export class Device {
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP()',
   })
-  createdAt: Date;
+  createdAt: Date
 
   @UpdateDateColumn({
     name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP()',
   })
-  updatedAt: Date;
+  updatedAt: Date
 
   @OneToMany(() => Port, (port) => port.device)
-  ports: Array<Port>;
+  ports: Array<Port>
 
   // @OneToOne(() => User)
   // @JoinColumn({ name: 'user_id' })

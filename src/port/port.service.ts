@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UpdatePortDto } from './dto/update-port.dto';
-import { Port } from './entities/port.entity';
+import { Injectable } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { UpdatePortDto } from './dto/update-port.dto'
+import { Port } from './entities/port.entity'
 
 @Injectable()
 export class PortService {
@@ -10,11 +10,11 @@ export class PortService {
     @InjectRepository(Port) private readonly portsService: Repository<Port>,
   ) {}
   async findAll(deviceId: number) {
-    return await this.portsService.find({ where: { deviceId } });
+    return await this.portsService.find({ where: { deviceId } })
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} port`;
+    return `This action returns a #${id} port`
   }
 
   async update(updatePortDto: UpdatePortDto) {
@@ -25,10 +25,10 @@ export class PortService {
         speedId: updatePortDto.speedId,
         flowControlId: updatePortDto.flowControlId,
       },
-    );
+    )
   }
 
   remove(id: number) {
-    return `This action removes a #${id} port`;
+    return `This action removes a #${id} port`
   }
 }

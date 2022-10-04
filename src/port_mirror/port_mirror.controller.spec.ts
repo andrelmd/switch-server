@@ -1,20 +1,20 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { PortMirrorController } from './port_mirror.controller';
-import { PortMirrorService } from './port_mirror.service';
+import { Test, TestingModule } from '@nestjs/testing'
+import { PortMirrorController } from './port_mirror.controller'
+import { PortMirrorService } from './port_mirror.service'
 
 describe('PortMirrorController', () => {
-  let controller: PortMirrorController;
+  let controller: PortMirrorController
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [PortMirrorController],
       providers: [PortMirrorService],
-    }).compile();
+    }).compile()
 
-    controller = module.get<PortMirrorController>(PortMirrorController);
-  });
+    controller = module.get<PortMirrorController>(PortMirrorController)
+  })
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
+    expect(controller).toBeDefined()
+  })
+})
