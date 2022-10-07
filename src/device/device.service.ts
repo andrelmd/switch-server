@@ -26,7 +26,7 @@ export class DeviceService {
       for (let i = 0; i < 8; i++) {
         ports.push(
           this.portsRepository.create({
-            number: i,
+            number: i + 1,
             deviceId: switchEntity.id,
             statusId: 1,
             speedId: 1,

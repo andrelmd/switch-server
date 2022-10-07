@@ -1,12 +1,9 @@
 import { Injectable } from '@nestjs/common'
+import { Cron, CronExpression } from '@nestjs/schedule'
 import { InjectRepository } from '@nestjs/typeorm'
 import { Repository } from 'typeorm'
 import { Device } from '../device/entities/device.entity'
-import { Port } from '../port/entities/port.entity'
 import { Crawler } from './crawler'
-import { FlowControl } from './enums/flow-control.enum'
-import { Speed } from './enums/speed.enum'
-import { State } from './enums/state.enum'
 
 @Injectable()
 export class ScrapperService {
@@ -15,26 +12,35 @@ export class ScrapperService {
     private readonly devicesRepository: Repository<Device>,
   ) {}
 
+  @Cron(CronExpression.EVERY_10_MINUTES)
   async updatePorts() {
-    const devices = await this.devicesRepository.find({ relations: ['ports'] })
+    console.info('[INFO]: Initalizing cron job to update ports for devices')
+
     const crawler = await Crawler.init()
-    devices.forEach(async (device) => {
-      await crawler.loginToSwitch(
-        device.ipAddress,
-        device.username,
-        device.password,
-      )
-      await Promise.all([
-        device.ports.forEach(async (port) => {
-          await crawler.changePortStatus(
-            Port[port.number],
-            port.statusId ? State.Enable : State.Disable,
-            Speed.Auto,
-            FlowControl.Off,
-          )
-        }),
-      ])
-    })
-    await crawler.browser.close()
+    try {
+      if (!crawler) throw new Error('Crawler is null')
+      const devices = await this.devicesRepository.find({
+        relations: ['ports'],
+      })
+      if (!devices.length) {
+        console.info('[INFO]: No devices found, exiting...')
+        return
+      }
+      console.info(`[INFO]: Updating ${devices.length} devices`)
+      for await (const device of devices) {
+        await crawler.loginToSwitch(
+          `http://${device.ipAddress}`,
+          device.username,
+          device.password,
+        )
+        for await (const port of device.ports) {
+          await crawler.changePortStatus(port)
+        }
+      }
+    } catch (error) {
+      console.error(`[ERROR]: Could not update ports ${error.message}`)
+    } finally {
+      await crawler.closeBrowser()
+    }
   }
 }
