@@ -33,7 +33,8 @@ export class ScrapperService {
           device.username,
           device.password,
         )
-        for await (const port of device.ports) {
+        const ports = device.ports.reverse()
+        for await (const port of ports) {
           await crawler.changePortStatus(port)
         }
       }

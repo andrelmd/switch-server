@@ -1,8 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Patch } from '@nestjs/common'
 import { UpdatePortDto } from './dto/update-port.dto'
-import { FlowControl } from './enums/flow-control.enum'
-import { Speeds } from './enums/speeds.enum'
-import { States } from './enums/states.enum'
 import { PortService } from './port.service'
 
 @Controller('ports')
@@ -11,16 +8,16 @@ export class PortController {
 
   @Get('/flow-control')
   async getFlowControl() {
-    return { data: FlowControl }
+    return { data: await this.portService.findAllFlowControl() }
   }
   @Get('/speeds')
   async GetSpeed() {
-    return { data: Speeds }
+    return { data: await this.portService.findAllSpeeds() }
   }
 
   @Get('/states')
   async getStates() {
-    return { data: States }
+    return { data: await this.portService.findAllportStatus() }
   }
 
   @Get(':deviceId')

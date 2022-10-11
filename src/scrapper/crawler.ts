@@ -31,7 +31,7 @@ export class Crawler {
 
     try {
       return await launch({
-        headless: false,
+        headless: true,
         args: [
           '--disable-dev-shm-usage',
           '--disable-web-security',
@@ -179,11 +179,11 @@ export class Crawler {
       const mainFrame = this.getFrame('mainFrame')
 
       await mainFrame.select('select[id=portSel]', String(port.number))
-      await mainFrame.select('select[name=state]', String(port.statusId + 1))
+      await mainFrame.select('select[name=state]', String(port.statusId - 1))
       await mainFrame.select('select[name=speed]', String(port.speedId))
       await mainFrame.select(
         'select[name=flowcontrol]',
-        String(port.flowControlId + 1),
+        String(port.flowControlId - 1),
       )
       await mainFrame.click('input[name=apply]')
       await this.waitMs(1000)
