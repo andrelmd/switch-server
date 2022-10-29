@@ -47,11 +47,26 @@ export class DeviceService {
     return await this.devicessRepository.findOneByOrFail({ id })
   }
 
-  update(id: number, updateSwitchDto: UpdateDeviceDto) {
-    return `This action updates a #${id} switch`
+  async update(id: number, updateSwitchDto: UpdateDeviceDto) {
+    await this.devicessRepository.findOneOrFail({ where: { id } })
+    return await this.devicessRepository.update(
+      { id },
+      {
+        ipAddress: updateSwitchDto.ipAddress,
+        password: updateSwitchDto.password,
+        username: updateSwitchDto.username,
+      },
+    )
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} switch`
+  async remove(id: number) {
+    return await this.datasource.transaction(async (manager) => {
+      const switchEntity = await this.devicessRepository.findOneOrFail({
+        where: { id },
+        relations: { ports: true },
+      })
+      await manager.getRepository(Port).remove(switchEntity.ports)
+      return await manager.getRepository(Device).delete(switchEntity)
+    })
   }
 }
