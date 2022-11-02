@@ -15,7 +15,8 @@ export class ScrapperService {
   @Cron(CronExpression.EVERY_5_MINUTES)
   async updatePorts() {
     console.info('[INFO]: Initalizing cron job to update ports for devices')
-
+    const start = new Date()
+    console.info(`Local date is: ${start.toLocaleString()}`)
     const crawler = await Crawler.init()
     try {
       if (!crawler) throw new Error('Crawler is null')
@@ -42,6 +43,12 @@ export class ScrapperService {
       console.error(`[ERROR]: Could not update ports ${error.message}`)
     } finally {
       await crawler.closeBrowser()
+      const end = new Date()
+      console.info(
+        `Local date is: ${end.toLocaleString}, took ${
+          end.getTime() - start.getTime()
+        }`,
+      )
     }
   }
 }
