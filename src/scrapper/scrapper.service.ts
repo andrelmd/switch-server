@@ -12,7 +12,7 @@ export class ScrapperService {
     private readonly devicesRepository: Repository<Device>,
   ) {}
 
-  @Cron(CronExpression.EVERY_MINUTE)
+  @Cron(CronExpression.EVERY_5_MINUTES)
   async updatePorts() {
     console.info('[INFO]: Initalizing cron job to update ports for devices')
 
@@ -33,7 +33,7 @@ export class ScrapperService {
           device.username,
           device.password,
         )
-        const ports = device.ports.reverse()
+        const ports = device.ports
         for await (const port of ports) {
           await crawler.changePortStatus(port)
         }
