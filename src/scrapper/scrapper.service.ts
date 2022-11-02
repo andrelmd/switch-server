@@ -12,7 +12,7 @@ export class ScrapperService {
     private readonly devicesRepository: Repository<Device>,
   ) {}
 
-  @Cron(CronExpression.EVERY_10_MINUTES)
+  @Cron(CronExpression.EVERY_MINUTE)
   async updatePorts() {
     console.info('[INFO]: Initalizing cron job to update ports for devices')
 

@@ -63,9 +63,11 @@ export class DeviceService {
     return await this.datasource.transaction(async (manager) => {
       const switchEntity = await this.devicessRepository.findOneOrFail({
         where: { id },
-        relations: { ports: true },
       })
-      await manager.getRepository(Port).remove(switchEntity.ports)
+      const portEntities = await manager
+        .getRepository(Port)
+        .findBy({ deviceId: id })
+      await manager.getRepository(Port).remove(portEntities)
       return await manager.getRepository(Device).delete(switchEntity)
     })
   }
