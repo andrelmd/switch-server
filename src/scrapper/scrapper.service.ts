@@ -45,9 +45,7 @@ export class ScrapperService {
       await crawler.closeBrowser()
       const end = new Date()
       console.info(
-        `Local date is: ${end.toLocaleString}, took ${
-          end.getTime() - start.getTime()
-        }`,
+        `Local date is: ${end.toLocaleString()}, took ${end.getTime() - start.getTime()} ms`,
       )
     }
   }
