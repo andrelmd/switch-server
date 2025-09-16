@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: switch-server
+    build: .
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DB_PORT: "${DB_PORT:-3306}"
+      BROWSER_EXECUTABLE_PATH: "${BROWSER_EXECUTABLE_PATH:-/usr/bin/chromium-browser}"
+      BROWSER_PRODUCT: "${BROWSER_PRODUCT:-chrome}"
+      TZ: "${TZ:-America/Sao_Paulo}"
+    ports:
+      - "${APP_PORT:-3000}:${APP_PORT:-3000}"
+    networks:
+      - app-network
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    container_name: postgres
+    image: docker.io/library/mariadb
+    restart: unless-stopped
+    environment:
+      MYSQL_USER: ${DB_USER}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    ports:
+      - "${DB_PORT:-3306}:3306"
+    volumes:
+      - database-data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  database-data:
