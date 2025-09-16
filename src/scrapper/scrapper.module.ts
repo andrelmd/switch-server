@@ -5,8 +5,8 @@ import { ScrapperController } from './scrapper.controller'
 import { ScrapperService } from './scrapper.service'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Device])],
-  controllers: [ScrapperController],
-  providers: [ScrapperService],
+	imports: [TypeOrmModule.forFeature([Device])],
+	controllers: [ScrapperController],
+	providers: [ScrapperService],
 })
 export class ScrapperModule {}

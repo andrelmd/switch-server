@@ -8,14 +8,14 @@ import { AppService } from './app.service'
 import { appDatabase } from './data-source/data-source'
 
 @Module({
-  imports: [
-    appDatabase,
-    DeviceModule,
-    PortModule,
-    ScrapperModule,
-    ScheduleModule.forRoot(),
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		appDatabase,
+		DeviceModule,
+		PortModule,
+		ScrapperModule,
+		ScheduleModule.forRoot(),
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {}

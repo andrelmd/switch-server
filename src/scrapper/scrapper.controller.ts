@@ -3,10 +3,10 @@ import { ScrapperService } from './scrapper.service'
 
 @Controller('scrapper')
 export class ScrapperController {
-  constructor(private readonly scrapperService: ScrapperService) {}
+	constructor(private readonly scrapperService: ScrapperService) {}
 
-  @Get()
-  async test() {
-    return await this.scrapperService.updatePorts()
-  }
+	@Get()
+	async test() {
+		return await this.scrapperService.updatePorts()
+	}
 }

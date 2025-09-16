@@ -8,8 +8,8 @@ import { PortController } from './port.controller'
 import { PortService } from './port.service'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Port, FlowControl, PortStatus, Speed])],
-  controllers: [PortController],
-  providers: [PortService],
+	imports: [TypeOrmModule.forFeature([Port, FlowControl, PortStatus, Speed])],
+	controllers: [PortController],
+	providers: [PortService],
 })
 export class PortModule {}

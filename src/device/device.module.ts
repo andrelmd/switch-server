@@ -6,8 +6,8 @@ import { DeviceService } from './device.service'
 import { Device } from './entities/device.entity'
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Device, Port])],
-  controllers: [DeviceController],
-  providers: [DeviceService],
+	imports: [TypeOrmModule.forFeature([Device, Port])],
+	controllers: [DeviceController],
+	providers: [DeviceService],
 })
 export class DeviceModule {}
