@@ -1,0 +1,6 @@
+{
+	"python.testing.pytestArgs": ["app"],
+	"python.testing.unittestEnabled": false,
+	"python.testing.pytestEnabled": true,
+	"python.defaultInterpreterPath": "C:\\Users\\lmaldonado\\AppData\\Local\\mise\\installs\\python\\3.14.3\\python.exe"
+}

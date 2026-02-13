@@ -1,0 +1,1 @@
+# FastAPI Switch Server Application

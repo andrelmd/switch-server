@@ -1,0 +1,7 @@
+fastapi[standard]
+pydantic-settings
+pyjwt
+pytest
+requests
+requests-mock
+sqlmodel
